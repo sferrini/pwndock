@@ -74,10 +74,5 @@ RUN cd ~ \
     && git clone https://github.com/hugsy/gef.git \
     && echo "source ~/gef/gef.py > ~/.gdbinit"
 
-# Install dotfiles
-RUN cd ~ \
-    && git clone https://github.com/Grazfather/dotfiles.git \
-    && bash ~/dotfiles/init.sh
-
 # work env
 WORKDIR /code
