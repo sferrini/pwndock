@@ -55,24 +55,20 @@ RUN apt update \
     && apt install -y e2tools qemu \
     && apt clean
 
-# Install tmux from source
+# tmux
 RUN apt update \
-    && apt -y install libevent-dev libncurses-dev \
+    && apt -y install tmux \
     && apt clean
 
-RUN TMUX_VERSION=$(curl -s https://api.github.com/repos/tmux/tmux/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")') \
-    && wget https://github.com/tmux/tmux/releases/download/$TMUX_VERSION/tmux-$TMUX_VERSION.tar.gz \
-    && tar zxvf tmux-$TMUX_VERSION.tar.gz \
-    && cd tmux-$TMUX_VERSION \
-    && ./configure && make && make install \
-    && cd .. \
-    && rm -rf tmux-$TMUX_VERSION* \
-    && echo "tmux hold" | dpkg --set-selections # disable tmux update from apt
+# zsh
+RUN apt update \
+    && apt -y install zsh \
+    && apt clean
 
 # GEF
 RUN cd ~ \
     && git clone https://github.com/hugsy/gef.git \
-    && echo "source ~/gef/gef.py > ~/.gdbinit"
+    && echo "source ~/gef/gef.py" > ~/.gdbinit
 
 # work env
 WORKDIR /code
